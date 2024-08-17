@@ -7,6 +7,11 @@ import {
   Button,
   Typography,
   Box,
+  DialogTitle,
+  Dialog,
+  DialogContentText,
+  DialogContent,
+  DialogActions,    
 } from '@mui/material'
 
 export default function Generate() {
@@ -134,7 +139,6 @@ export default function Generate() {
                 </Box>
             )}
 
-            // Dialog is here!!!
             <Dialog open={dialogOpen} onClose={handleCloseDialog}>
             <DialogTitle>Save Flashcard Set</DialogTitle>
             <DialogContent>

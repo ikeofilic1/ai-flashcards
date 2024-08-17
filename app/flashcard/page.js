@@ -1,3 +1,6 @@
+import db from "@/firebase"
+import { collection, doc } from "firebase/firestore"
+
 export default function Flashcard() {
     const { isLoaded, isSignedIn, user } = useUser()
     const [flashcards, setFlashcards] = useState([])
