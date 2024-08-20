@@ -5,16 +5,23 @@ import {
   Container,
   TextField,
   Button,
+  Grid,
+  Card,
   Typography,
   Box,
   DialogTitle,
   Dialog,
   DialogContentText,
   DialogContent,
-  DialogActions,    
+  DialogActions,
+  CardContent,    
 } from '@mui/material'
+import { collection, doc, getDoc, writeBatch } from 'firebase/firestore'
+import db from '@/firebase'
+import { useUser } from '@clerk/nextjs'
 
 export default function Generate() {
+  let { isSignedIn, user } = useUser()
   const [text, setText] = useState('')
   const [flashcards, setFlashcards] = useState([])
 
@@ -35,6 +42,7 @@ export default function Generate() {
       }
   
       const data = await response.json()
+      console.log("data: ", data)
       setFlashcards(data)
     } catch (error) {
       console.error('Error generating flashcards:', error)
@@ -56,6 +64,7 @@ export default function Generate() {
         }
     
         try {
+            if (!isSignedIn) return; // If you are not signed in then too bad
             const userDocRef = doc(collection(db, 'users'), user.id)
             const userDocSnap = await getDoc(userDocRef)
         
